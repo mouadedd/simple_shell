@@ -1,23 +1,31 @@
 #ifndef SHELL_H
 #define SHELL_H
 
-#include <stdarg.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <stdlib.h>
+#include <stdarg.h>
+#include <time.h>
+#include <stdbool.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <sys/stat.h>
-#include <time.h>
-#include <stdbool.h>
 
 int _putchar(char c);
+
 /* environment variables */
 extern char **environ;
 void p_env(void);
 
-/* handle built ins */
+/* functions to handle strings */
+int _strcmp(char *s1, char *s2);
+int _strlen(char *s);
+int _strncmp(char *s1, char *s2, int n);
+char *_strdup(char *s);
+char *_strchr(char *s, char c);
+
+/* handle builtins */
 int checker(char **cmd, char *buf);
 void prompt(void);
 void h_signal(int s);
@@ -28,13 +36,6 @@ int h_builtin(char **command, char *line);
 char *append_path(char *path, char *command);
 char *find_path(void);
 char *test_path(char **path, char *command);
-
-/* functions to handle strings */
-int _strcmp(char *s1, char *s2);
-int _strlen(char *s);
-int _strncmp(char *s1, char *s2, int n);
-char *_strdup(char *s);
-char *_strchr(char *s, char c);
 
 /*functions to handle cmd*/
 void exit_cmd(char **command, char *line);
@@ -55,6 +56,15 @@ struct builtin
 } builtin;
 
 /**
+ * struct flags -struct for flags handling
+ * @interactive: unique parameter
+ */
+struct flags
+{
+	bool interactive;
+} flags;
+
+/**
  * struct info -structto get user prompt
  * @final_exit: parameter to exit
  * @ln_count: length
@@ -64,14 +74,5 @@ struct info
 	int final_exit;
 	int ln_count;
 } info;
-
-/**
- * struct flags -struct for flags handling
- * @interactive: unique parameter
- */
-struct flags
-{
-	bool interactive;
-} flags;
 
 #endif
