@@ -1,5 +1,4 @@
 #include "shell.h"
-
 /**
  * execute - execute the command of users
  *@cp: command

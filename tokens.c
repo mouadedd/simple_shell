@@ -7,10 +7,11 @@
  */
 char **ha_tooken(char *line)
 {
-	char *buf = NULL, *bufp = NULL, *token = NULL, *delim = " :\t\r\n";
+	char *buf = NULL, *bufp = NULL, *token = NULL;
+	char *delim = " :\t\r\n";
 	char **tokens = NULL;
 	int token_size = 1;
-	size_t index = 0, flag = 0;
+	size_t ind = 0, flg = 0;
 
 	buf = _strdup(line);
 	if (!buf)
@@ -19,29 +20,29 @@ char **ha_tooken(char *line)
 
 	while (*bufp)
 	{
-		if (_strchr(delim, *bufp) != NULL && flag == 0)
+		if (_strchr(delim, *bufp) != NULL && flg == 0)
 		{
 			token_size++;
-			flag = 1;
+			flg = 1;
 		}
-		else if (_strchr(delim, *bufp) == NULL && flag == 1)
-			flag = 0;
+		else if (_strchr(delim, *bufp) == NULL && flg == 1)
+			flg = 0;
 		bufp++;
 	}
 	tokens = malloc(sizeof(char *) * (token_size + 1));
 	token = strtok(buf, delim);
 	while (token)
 	{
-		tokens[index] = _strdup(token);
-		if (tokens[index] == NULL)
+		tokens[ind] = _strdup(token);
+		if (tokens[ind] == NULL)
 		{
 			free(tokens);
 			return (NULL);
 		}
 		token = strtok(NULL, delim);
-		index++;
+		ind++;
 	}
-	tokens[index] = '\0';
+	tokens[ind] = '\0';
 	free(buf);
 	return (tokens);
 }

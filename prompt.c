@@ -2,7 +2,6 @@
 
 /**
  * prompt - puts $ prompt to be user friendly
- *
  * Return: 0
  */
 void prompt(void)
